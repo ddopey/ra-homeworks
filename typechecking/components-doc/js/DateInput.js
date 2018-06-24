@@ -9,3 +9,16 @@ const DateInput = props => {
     </div>
   )
 };
+
+DateInput.propTypes = {
+	onChange: PropTypes.func.isRequired,
+	  
+	label: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	value: datePropType,
+	required: PropTypes.bool 
+}
+
+DateInput.defaultProps = {
+  value: new Date().toISOString().substr(0, 10)
+}
