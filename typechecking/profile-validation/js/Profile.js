@@ -27,3 +27,37 @@ const Profile = props => {
     </div>
   );
 };
+
+const birthdayPropType = (props, propName, componentName) => {
+  let birthdayLine = props[propName];
+  let isValid = (new Date(birthdayLine) < new Date()) &&
+  (/^\d{4}-\d{2}-\d{2}$/.test(birthdayLine));
+  if(!isValid) {
+  return new Error(`Неверный параметр ${propName} в компоненте
+  ${componentName}: параметр должен быть датой рождения в формате YYYY-MM-DD`);
+  }
+  return null;
+}
+
+const urlPropType = (props, propName, componentName) => {
+  let profileUrl = props[propName];
+  let isUrl = (typeof profileUrl === 'string') &&
+  /^https:\/\/vk.com\/(id[0-9]+|[A-Za-z0-9_-]+)$/.test(profileUrl);
+  if(!isUrl) {
+  return new Error(`Неверный параметр ${propName} в компоненте
+  ${componentName}: параметр должен быть адресом профиля`);
+  }
+  return null;
+}
+
+Profile.propTypes = {
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  img: PropTypes.string,
+  birthday: birthdayPropType,
+  url: urlPropType 
+}
+
+Profile.defaultProps = {
+  img: './images/profile.jpg'
+}
